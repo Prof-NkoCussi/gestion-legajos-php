@@ -1,5 +1,5 @@
 <?php
-// config.ejemplo.php — modelo de la configuración (este archivo SÍ va al repositorio)
+// config.ejemplo.php — modelo de la configuración
 // En el servidor se copia como config.php y ahí se escribe la contraseña real:
 //   cp config.ejemplo.php config.php
 // config.php está en .gitignore: la contraseña nunca llega a GitHub.
