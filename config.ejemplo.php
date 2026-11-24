@@ -1,0 +1,13 @@
+<?php
+// config.ejemplo.php — modelo de la configuración (este archivo SÍ va al repositorio)
+// En el servidor se copia como config.php y ahí se escribe la contraseña real:
+//   cp config.ejemplo.php config.php
+// config.php está en .gitignore: la contraseña nunca llega a GitHub.
+
+// return devuelve este array a quien haga require del archivo
+return [
+    'db_host'    => 'localhost',    // MySQL está en el mismo servidor que Apache
+    'db_nombre'  => 'gestion',      // la base de datos del sistema
+    'db_usuario' => 'app_gestion',  // usuario con permisos mínimos (nunca root)
+    'db_clave'   => 'CAMBIAR',      // en config.php va la contraseña real
+];
