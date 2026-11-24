@@ -44,7 +44,7 @@ Sistema web para administrar los legajos de docentes —datos personales, títul
 | GET y POST | GET solo muestra (`editar.php?id=3`, `baja.php?id=7`); los cambios se hacen siempre por POST |
 | Reglas de la base | `UNIQUE` en el DNI (error 1062) y clave foránea con `ON DELETE RESTRICT` en las inscripciones (error 1451): PHP las traduce a mensajes |
 
-El código tiene comentarios en cada sección para que se lea fácil.
+El código tiene comentarios para facilitar la lectura de cada sección.
 
 ## Estructura
 
