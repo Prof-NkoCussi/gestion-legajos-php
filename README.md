@@ -1,6 +1,6 @@
 # Gestión de Legajos
 
-Sistema web para administrar los legajos de docentes —datos personales, títulos e inscripciones— hecho con **PHP** y **MySQL** sobre un servidor **LAMP** (Linux, Apache, MySQL, PHP). Esta versión tiene el **ABM de docentes**: listado, alta, modificación y baja.
+Sistema web de gestión que simula la administración de los docentes de un colegio: datos personales, títulos e inscripciones. Está hecho con **PHP** y **MySQL** sobre un servidor **LAMP** (Linux, Apache, MySQL, PHP). Esta versión tiene el **ABM de docentes**: listado, alta, modificación y baja.
 
 > Proyecto de práctica: todos los datos son ficticios.
 
