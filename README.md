@@ -16,19 +16,19 @@ Sistema web de gestión que simula la administración de los docentes de un cole
 
 **Listado de docentes**
 
-![Listado de docentes](docs/demo/listado.gif)
+![Listado de docentes](docs/demo/1-listado.gif)
 
 **Alta, con validación y DNI repetido**
 
-![Alta de un docente](docs/demo/alta.gif)
+![Alta de un docente](docs/demo/2-alta.gif)
 
 **Modificación**
 
-![Modificación de un docente](docs/demo/modificacion.gif)
+![Modificación de un docente](docs/demo/3-modificacion.gif)
 
 **Baja con confirmación, y un docente con inscripciones que no se puede borrar**
 
-![Baja de un docente](docs/demo/baja.gif)
+![Baja de un docente](docs/demo/4-baja.gif)
 
 ## Cómo está hecho
 
