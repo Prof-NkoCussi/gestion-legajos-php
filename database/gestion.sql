@@ -72,7 +72,7 @@ INSERT INTO docentes (dni, apellido, nombre, email, telefono) VALUES
   ('35123789', 'Ríos',      'Carolina',  'crios@mail.com',      '2901 473456'),
   ('27654321', 'Paz',       'Diego',     NULL,                  '2901 484567'),
   ('38765432', 'Medina',    'Sofía',     'smedina@mail.com',    NULL),
-  ('33221100', 'Benítez',   'Javier',    'jbenitez@mail.com',   '2901 495678'),
+  ('33221100', 'Benítez',   'Damián',    'dbenitez@mail.com',   '2901 495678'),
   ('40112233', 'Sosa',      'Valentina', 'vsosa@mail.com',      '2901 406789'),
   ('29887766', 'Luna',      'Ricardo',   'rluna@mail.com',      '2901 417890');
 
