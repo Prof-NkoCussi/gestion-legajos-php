@@ -24,3 +24,63 @@ function es_actual(string $archivo): string
 {
     return basename($_SERVER['SCRIPT_NAME']) === $archivo ? ' aria-current="page"' : '';
 }
+
+// validar_dni(): 7 u 8 dígitos y nada más (^ inicio, \d dígito, $ fin)
+function validar_dni(string $dni): bool
+{
+    return preg_match('/^\d{7,8}$/', $dni) === 1;
+}
+
+// nulo_si_vacio(): un campo opcional vacío se guarda como NULL ("sin dato")
+function nulo_si_vacio(string $texto): ?string
+{
+    return $texto === '' ? null : $texto;
+}
+
+// leer_docente(): arma el array del docente con lo que vino del formulario
+function leer_docente(array $origen): array
+{
+    return [
+        // en el DNI se sacan puntos y espacios: 28.456.123 → 28456123
+        'dni'      => str_replace(['.', ' '], '', limpiar($origen['dni'] ?? '')),
+        'apellido' => limpiar($origen['apellido'] ?? ''),
+        'nombre'   => limpiar($origen['nombre'] ?? ''),
+        'email'    => limpiar($origen['email'] ?? ''),
+        'telefono' => limpiar($origen['telefono'] ?? ''),
+    ];
+}
+
+// validar_docente(): revisa los datos; devuelve los errores (array vacío = todo bien)
+// La clave de cada error es el campo, para mostrarlo debajo de su casillero
+function validar_docente(array $d): array
+{
+    $errores = [];
+    if (!validar_dni($d['dni'])) {
+        $errores['dni'] = 'El DNI tiene que tener 7 u 8 números.';
+    }
+    // mb_strlen cuenta letras (con tildes y ñ), no bytes; 60 es el largo de la columna
+    if ($d['apellido'] === '' || mb_strlen($d['apellido']) > 60) {
+        $errores['apellido'] = 'El apellido es obligatorio (hasta 60 letras).';
+    }
+    if ($d['nombre'] === '' || mb_strlen($d['nombre']) > 60) {
+        $errores['nombre'] = 'El nombre es obligatorio (hasta 60 letras).';
+    }
+    // el email es opcional: solo se valida si se escribió algo
+    if ($d['email'] !== '' && (filter_var($d['email'], FILTER_VALIDATE_EMAIL) === false || mb_strlen($d['email']) > 120)) {
+        $errores['email'] = 'El email no es válido.';
+    }
+    if (mb_strlen($d['telefono']) > 20) {
+        $errores['telefono'] = 'El teléfono es demasiado largo (hasta 20 caracteres).';
+    }
+    return $errores;
+}
+
+// redirigir(): le dice al navegador que vaya a otra página y corta el script
+// never = esta función nunca vuelve: termina con exit
+function redirigir(string $url): never
+{
+    // Cabecera HTTP "Location": el navegador pide esa URL con GET
+    header('Location: ' . $url);
+    // Sin exit, PHP seguiría ejecutando el resto de la página
+    exit;
+}
