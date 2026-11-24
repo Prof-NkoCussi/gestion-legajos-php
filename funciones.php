@@ -25,6 +25,9 @@ function es_actual(string $archivo): string
     return basename($_SERVER['SCRIPT_NAME']) === $archivo ? ' aria-current="page"' : '';
 }
 
+
+// FORMULARIO: leer, validar y guardar //
+
 // validar_dni(): 7 u 8 dígitos y nada más (^ inicio, \d dígito, $ fin)
 function validar_dni(string $dni): bool
 {
@@ -84,6 +87,9 @@ function redirigir(string $url): never
     // Sin exit, PHP seguiría ejecutando el resto de la página
     exit;
 }
+
+
+// MODIFICACIONES //
 
 // leer_id(): toma un id de un array ($_GET) y lo devuelve como número entero
 // Devuelve null si no vino, si no es un número o si es menor que 1
