@@ -19,7 +19,7 @@
         <span class="cabecera__sigla" aria-hidden="true">GL</span>
         <div>
             <strong>Gestión de Legajos</strong>
-            <span>Docentes · títulos · inscripciones</span>
+            <span>Alta, modificación y baja</span>
         </div>
     </div>
     <!-- es_actual() agrega aria-current="page" al enlace de la página abierta -->
