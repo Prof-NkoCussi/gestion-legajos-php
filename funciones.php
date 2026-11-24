@@ -84,3 +84,25 @@ function redirigir(string $url): never
     // Sin exit, PHP seguiría ejecutando el resto de la página
     exit;
 }
+
+// leer_id(): toma un id de un array ($_GET) y lo devuelve como número entero
+// Devuelve null si no vino, si no es un número o si es menor que 1
+function leer_id(array $origen): ?int
+{
+    // FILTER_VALIDATE_INT: '7' da 7; '7abc', '' o un array dan false
+    $id = filter_var($origen['id'] ?? '', FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+    return $id === false ? null : $id;
+}
+
+// pagina_error(): muestra un aviso con el diseño del sitio y corta el script
+function pagina_error(int $codigo, string $texto): never
+{
+    // Código de estado HTTP: 404 = no existe, 500 = error del servidor
+    http_response_code($codigo);
+    $titulo = 'Aviso';
+    require __DIR__ . '/includes/header.php';
+    echo '<p class="aviso aviso--error">' . e($texto) . '</p>';
+    echo '<p><a href="index.php">Volver al listado</a></p>';
+    require __DIR__ . '/includes/footer.php';
+    exit;
+}
