@@ -29,6 +29,7 @@ $yo = usuario_actual();
         <nav class="menu" aria-label="Menú principal">
             <a href="index.php"<?= es_actual('index.php') ?>>Docentes</a>
             <a href="alta.php"<?= es_actual('alta.php') ?>>Nuevo docente</a>
+            <a href="materias.php"<?= es_actual('materias.php') ?>>Materias</a>
         </nav>
         <!-- Salir es un formulario POST: un enlace lo podría disparar otra página -->
         <form class="sesion" action="logout.php" method="post">

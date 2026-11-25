@@ -198,3 +198,46 @@ function verificar_csrf(): void
         pagina_error(403, 'El formulario no es válido o venció. Volvé a la página y probá otra vez.');
     }
 }
+
+
+// DOCENTES POR MATERIA //
+
+// Órdenes posibles del listado. En la URL viaja la clave; el SQL sale de acá (lista blanca)
+const ORDENES = [
+    'apellido' => 'd.apellido, d.nombre, i.cargo_materia',
+    'materia'  => 'i.cargo_materia, d.apellido, d.nombre',
+];
+
+// leer_filtro(): toma materia y orden de la URL y se queda solo con valores permitidos
+function leer_filtro(array $origen, array $materias): array
+{
+    $materia = limpiar($origen['materia'] ?? '');
+    $orden   = limpiar($origen['orden'] ?? '');
+    return [
+        // in_array(…, true): vale solo si es igual a una materia de la base; si no, '' (todas)
+        'materia' => in_array($materia, $materias, true) ? $materia : '',
+        // array_key_exists: vale solo una clave de ORDENES; si no, por apellido
+        'orden'   => array_key_exists($orden, ORDENES) ? $orden : 'apellido',
+    ];
+}
+
+// buscar_docentes_por_materia(): cada materia con los datos de su docente, ya filtrado y ordenado
+function buscar_docentes_por_materia(PDO $pdo, array $filtro): array
+{
+    // JOIN: la tabla inscripciones une docentes con materias (i.docente_id = d.id)
+    $sql = 'SELECT d.apellido, d.nombre, d.dni, d.email, i.cargo_materia
+            FROM inscripciones AS i
+            JOIN docentes AS d ON d.id = i.docente_id';
+    $datos = [];
+    if ($filtro['materia'] !== '') {
+        // La materia ya pasó la lista blanca y además va con marcador
+        $sql .= ' WHERE i.cargo_materia = :materia';
+        $datos['materia'] = $filtro['materia'];
+    }
+    // ORDER BY no acepta marcadores: se agrega el SQL de la lista blanca, nunca lo de la URL
+    $sql .= ' ORDER BY ' . ORDENES[$filtro['orden']];
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($datos);
+    return $stmt->fetchAll();
+}
