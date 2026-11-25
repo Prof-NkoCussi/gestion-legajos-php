@@ -200,7 +200,7 @@ function verificar_csrf(): void
 }
 
 
-// DOCENTES POR MATERIA //
+// DOCENTES POR MATERIA Y CSV //
 
 // Órdenes posibles del listado. En la URL viaja la clave; el SQL sale de acá (lista blanca)
 const ORDENES = [
@@ -240,4 +240,10 @@ function buscar_docentes_por_materia(PDO $pdo, array $filtro): array
     $stmt = $pdo->prepare($sql);
     $stmt->execute($datos);
     return $stmt->fetchAll();
+}
+
+// celda_csv(): si un texto empieza con = + - @, Excel lo tomaría como fórmula; se le agrega un apóstrofo
+function celda_csv(string $texto): string
+{
+    return preg_match('/^[=+\-@]/', $texto) === 1 ? "'" . $texto : $texto;
 }

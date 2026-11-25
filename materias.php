@@ -15,10 +15,16 @@ $materias = $pdo->query('SELECT DISTINCT cargo_materia FROM inscripciones ORDER 
 $filtro = leer_filtro($_GET, $materias);
 $filas = buscar_docentes_por_materia($pdo, $filtro);
 
+// El enlace de exportar lleva el mismo filtro; http_build_query arma y codifica la parte del ?
+$enlace_csv = 'exportar.php?' . http_build_query($filtro);
+
 $titulo = 'Docentes por materia';
 require __DIR__ . '/includes/header.php';
 ?>
-<h1>Docentes por materia</h1>
+<div class="titular">
+    <h1>Docentes por materia</h1>
+    <a class="boton" href="<?= e($enlace_csv) ?>">Exportar a CSV</a>
+</div>
 
 <!-- method="get": el filtro queda en la URL, se puede recargar y compartir -->
 <form class="tarjeta filtros" action="materias.php" method="get">
