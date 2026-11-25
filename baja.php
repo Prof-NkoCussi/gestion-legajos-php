@@ -5,7 +5,8 @@
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 
-exigir_login();
+// La baja es solo para el admin: sin login, al login; con otro rol, 403
+exigir_admin();
 
 $id = leer_id($_GET);
 if ($id === null) {

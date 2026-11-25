@@ -65,7 +65,10 @@ require __DIR__ . '/includes/header.php';
                     <td class="acciones">
                         <!-- el id viaja por GET: editar.php?id=3 -->
                         <a href="editar.php?id=<?= $d['id'] ?>">Editar</a>
-                        <a class="peligro" href="baja.php?id=<?= $d['id'] ?>">Baja</a>
+                        <!-- la baja solo le aparece al admin (y baja.php también lo controla) -->
+                        <?php if (es_admin()): ?>
+                            <a class="peligro" href="baja.php?id=<?= $d['id'] ?>">Baja</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -151,3 +151,19 @@ function exigir_login(): void
         redirigir('login.php');
     }
 }
+
+// es_admin(): true si el usuario que entró tiene el rol admin
+function es_admin(): bool
+{
+    return (usuario_actual()['rol'] ?? '') === 'admin';
+}
+
+// exigir_admin(): para lo que solo puede hacer el admin (la baja)
+function exigir_admin(): void
+{
+    exigir_login();
+    if (!es_admin()) {
+        // 403 = entraste, pero no tenés permiso para esto
+        pagina_error(403, 'Esta acción es solo para administradores.');
+    }
+}
