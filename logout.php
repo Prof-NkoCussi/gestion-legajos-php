@@ -7,6 +7,7 @@ iniciar_sesion();
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     redirigir('index.php');
 }
+verificar_csrf();
 
 // 1) Vaciar los datos de la sesión
 $_SESSION = [];

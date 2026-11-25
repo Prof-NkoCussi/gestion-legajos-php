@@ -13,6 +13,7 @@ $usuario = '';
 $error = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verificar_csrf();
     $usuario = limpiar($_POST['usuario'] ?? '');
     // La contraseña no pasa por limpiar(): un espacio puede ser parte de ella
     $clave = is_string($_POST['clave'] ?? null) ? $_POST['clave'] : '';
@@ -51,6 +52,7 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <form class="tarjeta formulario" action="login.php" method="post">
+    <?= campo_csrf() ?>
     <div class="campo">
         <label for="usuario">Usuario</label>
         <!-- autocomplete: el navegador puede ofrecer el usuario guardado -->

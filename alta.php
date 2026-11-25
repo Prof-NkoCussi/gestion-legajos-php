@@ -11,6 +11,8 @@ $errores = [];
 
 // ¿Llegó el formulario? POST = enviar datos que cambian algo en el servidor
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lo primero de cada POST: sin el token de la sesión, 403
+    verificar_csrf();
     $docente = leer_docente($_POST);       // toma y limpia lo que vino
     $errores = validar_docente($docente);  // valida en el servidor
 

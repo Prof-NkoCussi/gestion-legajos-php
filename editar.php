@@ -24,6 +24,8 @@ $errores = [];
 
 // 3) Si llegó el formulario, se valida y se guarda
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lo primero de cada POST: sin el token de la sesión, 403
+    verificar_csrf();
     $docente = leer_docente($_POST);
     $errores = validar_docente($docente);
 

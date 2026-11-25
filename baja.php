@@ -26,6 +26,8 @@ $error = null;
 
 // Solo con POST se borra: un enlace (GET) nunca debe cambiar datos
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // El token prueba que el POST salió de nuestro formulario (un curl o una página ajena no lo tienen)
+    verificar_csrf();
     try {
         $stmt = $pdo->prepare('DELETE FROM docentes WHERE id = :id');
         $stmt->execute(['id' => $id]);
@@ -54,6 +56,7 @@ require __DIR__ . '/includes/header.php';
 <?php else: ?>
     <!-- La confirmación es un formulario POST: un clic en un enlace no alcanza para borrar -->
     <form class="tarjeta confirmar" action="baja.php?id=<?= $id ?>" method="post">
+        <?= campo_csrf() ?>
         <p>¿Seguro que querés dar de baja a
            <strong><?= e(mb_strtoupper($docente['apellido'])) ?>, <?= e($docente['nombre']) ?></strong>
            (DNI <?= e($docente['dni']) ?>)?</p>

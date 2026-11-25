@@ -17,6 +17,8 @@ $campos = [
 ?>
 <!-- novalidate: que valide PHP, así se ven siempre los mensajes del servidor -->
 <form class="tarjeta formulario" action="<?= e($accion) ?>" method="post" novalidate>
+    <!-- campo oculto con el token CSRF: sin él, el POST se rechaza con 403 -->
+    <?= campo_csrf() ?>
 <?php foreach ($campos as $campo => $c): ?>
     <div class="campo">
         <label for="<?= $campo ?>"><?= e($c['etiqueta']) ?></label>

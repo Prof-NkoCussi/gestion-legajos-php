@@ -33,6 +33,7 @@ $yo = usuario_actual();
         <!-- Salir es un formulario POST: un enlace lo podría disparar otra página -->
         <form class="sesion" action="logout.php" method="post">
             <span><?= e($yo['usuario']) ?> · <?= e($yo['rol']) ?></span>
+            <?= campo_csrf() ?>
             <button type="submit">Salir</button>
         </form>
     <?php endif; ?>

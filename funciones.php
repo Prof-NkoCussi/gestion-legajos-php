@@ -167,3 +167,34 @@ function exigir_admin(): void
         pagina_error(403, 'Esta acción es solo para administradores.');
     }
 }
+
+
+// TOKEN CSRF //
+
+// token_csrf(): el token secreto de esta sesión; se crea la primera vez que se pide
+function token_csrf(): string
+{
+    iniciar_sesion();
+    if (empty($_SESSION['csrf'])) {
+        // random_bytes(32): 32 bytes al azar, imposibles de adivinar; bin2hex los escribe con 64 caracteres
+        $_SESSION['csrf'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf'];
+}
+
+// campo_csrf(): el campo oculto con el token, para poner dentro de cada formulario POST
+function campo_csrf(): string
+{
+    return '<input type="hidden" name="csrf" value="' . e(token_csrf()) . '">';
+}
+
+// verificar_csrf(): va primero en cada POST; si el token no vino o no coincide, corta con 403
+function verificar_csrf(): void
+{
+    iniciar_sesion();
+    $enviado = limpiar($_POST['csrf'] ?? '');
+    // hash_equals(): compara los dos textos tardando siempre lo mismo (no da pistas)
+    if (empty($_SESSION['csrf']) || !hash_equals($_SESSION['csrf'], $enviado)) {
+        pagina_error(403, 'El formulario no es válido o venció. Volvé a la página y probá otra vez.');
+    }
+}
