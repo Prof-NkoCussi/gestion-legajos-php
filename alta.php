@@ -3,6 +3,8 @@
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 
+exigir_login();
+
 // La primera vez el formulario arranca vacío y sin errores
 $docente = leer_docente([]);
 $errores = [];

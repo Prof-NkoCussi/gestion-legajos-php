@@ -3,6 +3,8 @@
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 
+exigir_login();
+
 // 1) ¿Qué docente? leer_id() devuelve un entero o null
 $id = leer_id($_GET);
 if ($id === null) {

@@ -5,6 +5,8 @@
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 
+exigir_login();
+
 $id = leer_id($_GET);
 if ($id === null) {
     pagina_error(404, 'Falta el docente a dar de baja.');

@@ -142,3 +142,12 @@ function usuario_actual(): ?array
     iniciar_sesion();
     return $_SESSION['usuario'] ?? null;
 }
+
+// exigir_login(): va al principio de cada página protegida
+// Si nadie entró, manda al login y corta el script
+function exigir_login(): void
+{
+    if (usuario_actual() === null) {
+        redirigir('login.php');
+    }
+}

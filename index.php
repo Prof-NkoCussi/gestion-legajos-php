@@ -3,6 +3,8 @@
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 
+// Sin login, al login: va antes de tocar la base
+exigir_login();
 $pdo = conectar();
 
 // Esta consulta no lleva ningún dato del usuario: alcanza con query(), sin preparar
