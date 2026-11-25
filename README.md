@@ -1,6 +1,20 @@
 # Gestión de Legajos
 
-Sistema web de gestión que simula la administración de los docentes de un colegio: datos personales, títulos y las materias que da cada uno. Está hecho con **PHP** y **MySQL** sobre un servidor **LAMP** (Linux, Apache, MySQL, PHP). Tiene **login con roles**, el **ABM de docentes** (listado, alta, modificación y baja) y el listado de **docentes por materia** con exportación a **CSV** para Excel.
+<!-- TECNOLOGÍAS -->
+![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![PDO](https://img.shields.io/badge/PDO-Database-4479A1)
+![Apache](https://img.shields.io/badge/Apache-2.4-D22128?logo=apache&logoColor=white)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
+
+## Descripción
+
+Sistema web de gestión institucional que simula la administración de legajos docentes de un establecimiento educativo. Permite gestionar información personal, títulos académicos y las materias que dicta cada docente.
+
+Desarrollado con **PHP** y **MySQL**, sobre una arquitectura **LAMP** (Linux, Apache, MySQL y PHP).
+
+Incluye un sistema de **autenticación con roles de usuario**, operaciones **ABM de docentes** (alta, baja y modificación), consulta de docentes por materia y exportación de información en formato **CSV**, compatible con Microsoft Excel.
 
 > Proyecto de práctica: todos los datos son ficticios.
 
