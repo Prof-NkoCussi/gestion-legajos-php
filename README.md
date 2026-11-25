@@ -8,6 +8,12 @@
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 
+<!-- FUNCIONALIDADES -->
+![CRUD](https://img.shields.io/badge/CRUD-Implementado-2E8B57)
+![Security](https://img.shields.io/badge/Security-CSRF%20%7C%20SQL%20Injection-2E8B57)
+![Authentication](https://img.shields.io/badge/Auth-Session%20%7C%20Roles-6C63FF)
+![Export](https://img.shields.io/badge/Export-CSV%20%7C%20Excel-217346)
+
 ## Descripción
 
 Sistema web de gestión institucional que simula la administración de legajos docentes de un establecimiento educativo. Permite gestionar información personal, títulos académicos y las materias que dicta cada docente.
