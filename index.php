@@ -1,5 +1,5 @@
 <?php
-// index.php — listado de docentes (leer: lo que se ve antes de dar altas, bajas o cambios)
+// index.php: listado de docentes (leer: lo que se ve antes de dar altas, bajas o cambios)
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 

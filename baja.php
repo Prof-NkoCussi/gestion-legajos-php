@@ -1,5 +1,5 @@
 <?php
-// baja.php — baja de un docente en dos pasos:
+// baja.php: baja de un docente en dos pasos:
 //   GET  baja.php?id=7 → muestra quién es y pide confirmación (no borra nada)
 //   POST baja.php?id=7 → recién ahí hace el DELETE
 require __DIR__ . '/funciones.php';

@@ -1,5 +1,5 @@
 <?php
-// funciones.php — funciones que usan todas las páginas
+// funciones.php: funciones que usan todas las páginas
 
 // PHP no toma la zona horaria de Linux: se la decimos acá, una sola vez
 date_default_timezone_set('America/Argentina/Ushuaia');

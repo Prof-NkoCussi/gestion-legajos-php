@@ -1,5 +1,5 @@
 <?php
-// includes/footer.php — cierre común: pie y fin del HTML
+// includes/footer.php: cierre común: pie y fin del HTML
 // Cierra el <main> que abrió header.php
 ?>
 </main>

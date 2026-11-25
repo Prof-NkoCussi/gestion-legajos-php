@@ -1,4 +1,4 @@
--- database/gestion.sql — esquema de la base y datos de prueba (todos ficticios)
+-- database/gestion.sql: esquema de la base y datos de prueba (todos ficticios)
 -- Se carga desde bash con:   sudo mysql < database/gestion.sql
 -- Ojo: si la base gestion ya existe, la borra y la vuelve a crear.
 

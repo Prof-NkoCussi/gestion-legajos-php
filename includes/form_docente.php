@@ -1,5 +1,5 @@
 <?php
-// includes/form_docente.php — formulario de docente, para el alta y para la modificación
+// includes/form_docente.php: formulario de docente, para el alta y para la modificación
 // Antes del require, la página define:
 //   $accion  a dónde se envía (alta.php o editar.php?id=3)
 //   $docente los valores de cada campo

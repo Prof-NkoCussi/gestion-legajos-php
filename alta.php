@@ -1,5 +1,5 @@
 <?php
-// alta.php — alta de un docente: formulario + INSERT
+// alta.php: alta de un docente: formulario + INSERT
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 

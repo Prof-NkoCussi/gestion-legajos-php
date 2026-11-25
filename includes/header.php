@@ -1,5 +1,5 @@
 <?php
-// includes/header.php — cabecera común: <head>, marca del sistema y menú
+// includes/header.php: cabecera común: <head>, marca del sistema y menú
 // Cada página lo trae con require, después de definir $titulo
 ?>
 <!DOCTYPE html>

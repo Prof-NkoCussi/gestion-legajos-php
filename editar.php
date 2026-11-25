@@ -1,5 +1,5 @@
 <?php
-// editar.php — modificación de un docente: el id llega por GET (editar.php?id=3)
+// editar.php: modificación de un docente: el id llega por GET (editar.php?id=3)
 require __DIR__ . '/funciones.php';
 require __DIR__ . '/conexion.php';
 

@@ -1,5 +1,5 @@
 <?php
-// conexion.php — abre la conexión con MySQL usando PDO
+// conexion.php: abre la conexión con MySQL usando PDO
 
 // conectar(): devuelve un objeto PDO listo para hacer consultas
 function conectar(): PDO
