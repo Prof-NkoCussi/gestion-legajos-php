@@ -112,3 +112,33 @@ function pagina_error(int $codigo, string $texto): never
     require __DIR__ . '/includes/footer.php';
     exit;
 }
+
+
+// SESIONES Y PERMISOS //
+
+// iniciar_sesion(): arranca la sesión (o retoma la que ya tiene el navegador)
+function iniciar_sesion(): void
+{
+    // Si ya está abierta en este pedido, no se abre otra vez
+    if (session_status() === PHP_SESSION_ACTIVE) {
+        return;
+    }
+    // Cómo es la cookie de sesión (PHPSESSID) que se manda al navegador
+    session_set_cookie_params([
+        'lifetime' => 0,                         // 0 = se borra al cerrar el navegador
+        'httponly' => true,                      // JavaScript no la puede leer: un XSS no la roba
+        'samesite' => 'Lax',                     // un formulario POST de otro sitio no la lleva
+        'secure'   => !empty($_SERVER['HTTPS']), // con HTTPS, solo viaja cifrada
+    ]);
+    // Modo estricto: PHP no acepta un id de sesión que no haya creado él
+    ini_set('session.use_strict_mode', '1');
+    // session_start(): lee la cookie, busca el archivo de esa sesión y llena $_SESSION
+    session_start();
+}
+
+// usuario_actual(): el usuario que entró (id, usuario y rol) o null si nadie entró
+function usuario_actual(): ?array
+{
+    iniciar_sesion();
+    return $_SESSION['usuario'] ?? null;
+}

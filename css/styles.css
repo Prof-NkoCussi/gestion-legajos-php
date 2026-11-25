@@ -96,6 +96,15 @@ h1, h2 { color: var(--indigo); line-height: 1.2; }
 .confirmar { max-width: 560px; }
 .confirmar p { margin-top: 0; }
 
+/* ---------- Sesión: usuario y botón Salir ---------- */
+.sesion { display: flex; align-items: center; gap: 10px; margin-top: 10px; font-size: .9rem; }
+.sesion span { opacity: .9; }
+.sesion button {
+    font: inherit; cursor: pointer; color: var(--blanco);
+    background: transparent; border: 1.5px solid rgba(255, 255, 255, .6); border-radius: 999px; padding: 3px 12px;
+}
+.sesion button:hover { background: rgba(255, 255, 255, .15); }
+
 /* ---------- Pie ---------- */
 .pie { text-align: center; color: var(--gris); font-size: .9rem; padding: 20px 16px; border-top: 1px solid var(--linea); }
 .pie p { margin: 4px 0; }
@@ -103,5 +112,6 @@ h1, h2 { color: var(--indigo); line-height: 1.2; }
 /* ---------- Pantallas grandes (desde 760 px) ---------- */
 @media (min-width: 760px) {
     .cabecera { display: flex; justify-content: space-between; align-items: center; padding: 14px 32px; }
-    .menu { margin-top: 0; }   /* el menú pasa a la derecha de la marca */
+    .menu, .sesion { margin-top: 0; }   /* el menú y la sesión pasan a la derecha de la marca */
+    .cabecera { gap: 16px; }
 }

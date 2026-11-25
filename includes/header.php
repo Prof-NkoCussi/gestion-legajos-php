@@ -1,6 +1,8 @@
 <?php
 // includes/header.php: cabecera común: <head>, marca del sistema y menú
 // Cada página lo trae con require, después de definir $titulo
+// $yo: el usuario que entró, o null (en el login)
+$yo = usuario_actual();
 ?>
 <!DOCTYPE html>
 <html lang="es-AR">
@@ -22,10 +24,17 @@
             <span>Alta, modificación y baja</span>
         </div>
     </div>
-    <!-- es_actual() agrega aria-current="page" al enlace de la página abierta -->
-    <nav class="menu" aria-label="Menú principal">
-        <a href="index.php"<?= es_actual('index.php') ?>>Docentes</a>
-        <a href="alta.php"<?= es_actual('alta.php') ?>>Nuevo docente</a>
-    </nav>
+    <?php if ($yo !== null): ?>
+        <!-- es_actual() agrega aria-current="page" al enlace de la página abierta -->
+        <nav class="menu" aria-label="Menú principal">
+            <a href="index.php"<?= es_actual('index.php') ?>>Docentes</a>
+            <a href="alta.php"<?= es_actual('alta.php') ?>>Nuevo docente</a>
+        </nav>
+        <!-- Salir es un formulario POST: un enlace lo podría disparar otra página -->
+        <form class="sesion" action="logout.php" method="post">
+            <span><?= e($yo['usuario']) ?> · <?= e($yo['rol']) ?></span>
+            <button type="submit">Salir</button>
+        </form>
+    <?php endif; ?>
 </header>
 <main class="contenido">
