@@ -3,6 +3,7 @@
 <!-- TECNOLOGÍAS -->
 ![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?logo=mysql&logoColor=white)
+![MariaDB](https://img.shields.io/badge/MariaDB-XAMPP-003545?logo=mariadb&logoColor=white)
 ![PDO](https://img.shields.io/badge/PDO-Database-4479A1)
 ![Apache](https://img.shields.io/badge/Apache-2.4-D22128?logo=apache&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
@@ -80,6 +81,7 @@ Incluye un sistema de **autenticación con roles de usuario**, operaciones **ABM
 | CSRF | Un token de 32 bytes al azar por sesión, oculto en cada formulario POST y comparado con `hash_equals`; sin token o con otro, 403 |
 | Inyección SQL | Todo dato que viene de afuera va con **consultas preparadas** (`prepare` + `execute` con marcadores). Lo que no puede ir en un marcador, como el `ORDER BY`, sale de una **lista blanca** |
 | XSS | Todo lo que se muestra pasa por `e()`, que usa `htmlspecialchars` |
+| MySQL y MariaDB | La base es `utf8mb4_unicode_ci`, que existe en los dos: el mismo `gestion.sql` se carga en el servidor (MySQL 8) y en XAMPP (MariaDB). En XAMPP, `database/` tiene un `.htaccess` con `Require all denied` (403) |
 | Errores | `try/catch`: el detalle técnico va al `error.log` de Apache con `error_log()`; al usuario, un mensaje claro y un código 500 |
 | Después de guardar | Patrón **Post/Redirect/Get**: `header('Location: …')` + `exit`, así un F5 no repite el alta |
 | GET y POST | GET solo muestra (`editar.php?id=3`, `baja.php?id=7`, el filtro de materias); los cambios se hacen siempre por POST |
@@ -104,14 +106,38 @@ gestion-legajos-php/
 ├── conexion.php           conectar(): la conexión PDO
 ├── funciones.php          e(), validar_docente(), exigir_login(), token_csrf()…
 ├── config.ejemplo.php     modelo de configuración (copiar como config.php)
+├── config.xampp.php       configuración de demo para XAMPP
+├── instalar-xampp.bat     instala todo en XAMPP con doble clic (solo para probar)
 ├── includes/
 │   ├── header.php         <head>, marca, menú y botón Salir
 │   ├── footer.php         pie
 │   └── form_docente.php   formulario compartido por el alta y la modificación
 ├── css/styles.css         estilos, mobile first
-├── database/gestion.sql   esquema de la base y datos de prueba
+├── database/
+│   ├── gestion.sql        esquema de la base y datos de prueba
+│   └── demo_xampp.sql     usuario de la base y usuarios de demo, solo para XAMPP
 └── docs/demo/             GIF de la demo
 ```
+
+## Probarlo en XAMPP (Windows)
+
+Para probar el sistema en la propia PC, sin configurar nada a mano.
+
+1. Descargar el zip (botón verde **Code**, **Download ZIP**) y descomprimirlo en `C:\xampp\htdocs\`. Queda la carpeta `gestion-legajos-php-main`; se le puede sacar el `-main`.
+2. Arrancar **Apache** y **MySQL** desde el panel de XAMPP.
+3. Doble clic en `instalar-xampp.bat`. Crea la base `gestion` con los datos de prueba (si ya existía, la borra), el usuario de la base `app_gestion` y los usuarios de demo, y copia `config.xampp.php` como `config.php`.
+4. Abrir la dirección que muestra al terminar: `http://localhost/gestion-legajos-php/` (o con el nombre que haya quedado la carpeta).
+
+| Usuario | Contraseña | Rol |
+|---|---|---|
+| `admin` | `Admin-Demo-2026` | administrador: además da de baja |
+| `operador1` | `Operador-Demo-2026` | operador: consulta, carga y modifica |
+
+> **Solo para probar en la propia PC.** Estas contraseñas son públicas. `database/demo_xampp.sql` y `config.xampp.php` no se usan en un servidor: ahí la instalación es la de LAMP, con usuarios creados con `crear_usuario.php` y contraseñas que no están en ningún archivo.
+
+Sin el instalador, a mano: en phpMyAdmin (`http://localhost/phpmyadmin`), pestaña **Importar**, cargar `database/gestion.sql` y después `database/demo_xampp.sql`; copiar `config.xampp.php` como `config.php`.
+
+Si XAMPP no está en `C:\xampp` o el usuario `root` de MySQL tiene contraseña, el instalador lo avisa y dice qué línea cambiar.
 
 ## Instalación en un servidor LAMP (Ubuntu)
 
@@ -141,14 +167,6 @@ Requisitos: Apache 2.4, PHP 8.1 o superior con `pdo_mysql` (paquete `php-mysql`)
    php crear_usuario.php operador1 operador
    ```
 6. Sacar `database/` de la carpeta web (Apache la mostraría como texto) y abrir `http://IP-DEL-SERVIDOR/gestion/login.php`.
-
-## Instalación en XAMPP (Windows)
-
-1. Copiar la carpeta en `C:\xampp\htdocs\gestion` y arrancar Apache y MySQL desde el panel de XAMPP.
-2. En phpMyAdmin (`http://localhost/phpmyadmin`), pestaña **Importar**, cargar `database/gestion.sql`.
-3. Copiar `config.ejemplo.php` como `config.php` y completar el usuario y la contraseña. XAMPP trae `root` sin contraseña: sirve para practicar en la propia PC, nunca en un servidor.
-4. Crear el primer usuario: en el panel de XAMPP, botón **Shell**, entrar a la carpeta y correr `php crear_usuario.php admin admin`. En Windows la contraseña se ve mientras se escribe.
-5. Abrir `http://localhost/gestion/login.php`.
 
 ## Probado en el servidor
 
