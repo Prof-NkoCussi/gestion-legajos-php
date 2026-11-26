@@ -4,7 +4,8 @@
 
 DROP DATABASE IF EXISTS gestion;
 -- utf8mb4: guarda bien tildes, ñ y cualquier carácter
-CREATE DATABASE gestion CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+-- unicode_ci: funciona en MySQL y en MariaDB (la de XAMPP); utf8mb4_0900_ai_ci existe solo en MySQL 8
+CREATE DATABASE gestion CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE gestion;
 
 -- Usuarios del sistema (se usan para el login)
