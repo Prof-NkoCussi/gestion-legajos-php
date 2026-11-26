@@ -1,7 +1,7 @@
 <?php
 // login.php: entrar al sistema con usuario y contraseña
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 iniciar_sesion();
 // Si ya entró, el formulario no hace falta
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $titulo = 'Entrar';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../src/plantillas/header.php';
 ?>
 <h1>Entrar al sistema</h1>
 
@@ -68,4 +68,4 @@ require __DIR__ . '/includes/header.php';
         <button class="boton" type="submit">Entrar</button>
     </div>
 </form>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../src/plantillas/footer.php'; ?>

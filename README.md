@@ -72,16 +72,17 @@ Incluye un sistema de **autenticación con roles de usuario**, operaciones **ABM
 
 | Tema | Cómo se resuelve |
 |---|---|
+| Carpetas | En el servidor, Apache sirve **solo `public/`** (con un `Alias` en `config/gestion.conf`). `config/`, `src/`, `scripts/` y `database/` quedan fuera de la web. En XAMPP, donde se publica toda la carpeta, un `index.php` en la raíz manda a `public/` y esas cuatro carpetas tienen un `.htaccess` con `Require all denied` (403) |
 | Conexión | **PDO** con DSN `mysql:host=localhost;dbname=gestion;charset=utf8mb4`, errores como excepciones (`ERRMODE_EXCEPTION`), filas como arrays asociativos y consultas preparadas nativas de MySQL |
-| Contraseña de la base | En `config.php`, que **no está en el repositorio** (`.gitignore`). En el repo va `config.ejemplo.php` como modelo |
+| Contraseña de la base | En `config/config.php`, que **no está en el repositorio** (`.gitignore`). En el repo va `config/config.ejemplo.php` como modelo |
 | Usuario de la base | `app_gestion`, con permisos mínimos (`SELECT`, `INSERT`, `UPDATE`, `DELETE`): la aplicación nunca se conecta como root |
-| Contraseñas | `password_hash` (bcrypt, con sal al azar) al guardar y `password_verify` al entrar: en la base nunca está la contraseña. Los usuarios se crean desde la terminal del servidor con `crear_usuario.php`, que pide la contraseña sin mostrarla |
+| Contraseñas | `password_hash` (bcrypt, con sal al azar) al guardar y `password_verify` al entrar: en la base nunca está la contraseña. Los usuarios se crean desde la terminal del servidor con `scripts/crear_usuario.php`, que pide la contraseña sin mostrarla |
 | Sesiones | Cookie `PHPSESSID` con `HttpOnly` (JavaScript no la lee) y `SameSite=Lax`, modo estricto y `session_regenerate_id(true)` al entrar. Salir vacía la sesión, vence la cookie y borra el archivo del servidor |
 | Páginas protegidas | `exigir_login()` al principio de cada página (302 al login) y `exigir_admin()` en la baja (403 para el operador) |
 | CSRF | Un token de 32 bytes al azar por sesión, oculto en cada formulario POST y comparado con `hash_equals`; sin token o con otro, 403 |
 | Inyección SQL | Todo dato que viene de afuera va con **consultas preparadas** (`prepare` + `execute` con marcadores). Lo que no puede ir en un marcador, como el `ORDER BY`, sale de una **lista blanca** |
 | XSS | Todo lo que se muestra pasa por `e()`, que usa `htmlspecialchars` |
-| MySQL y MariaDB | La base es `utf8mb4_unicode_ci`, que existe en los dos: el mismo `gestion.sql` se carga en el servidor (MySQL 8) y en XAMPP (MariaDB). En XAMPP, `database/` tiene un `.htaccess` con `Require all denied` (403) |
+| MySQL y MariaDB | La base es `utf8mb4_unicode_ci`, que existe en los dos: el mismo `gestion.sql` se carga en el servidor (MySQL 8) y en XAMPP (MariaDB). |
 | Errores | `try/catch`: el detalle técnico va al `error.log` de Apache con `error_log()`; al usuario, un mensaje claro y un código 500 |
 | Después de guardar | Patrón **Post/Redirect/Get**: `header('Location: …')` + `exit`, así un F5 no repite el alta |
 | GET y POST | GET solo muestra (`editar.php?id=3`, `baja.php?id=7`, el filtro de materias); los cambios se hacen siempre por POST |
@@ -94,29 +95,31 @@ El código tiene comentarios para facilitar la lectura de cada sección.
 
 ```
 gestion-legajos-php/
-├── index.php              listado de docentes
-├── alta.php               alta (INSERT)
-├── editar.php             modificación (UPDATE … WHERE id)
-├── baja.php               baja con confirmación (DELETE por POST), solo admin
-├── login.php              ingreso: password_verify y la sesión
-├── logout.php             salir (POST con token)
-├── materias.php           docentes por materia, con filtro y orden
-├── exportar.php           el mismo listado en CSV
-├── crear_usuario.php      crea usuarios desde la terminal, con password_hash
-├── conexion.php           conectar(): la conexión PDO
-├── funciones.php          e(), validar_docente(), exigir_login(), token_csrf()…
-├── config.ejemplo.php     modelo de configuración (copiar como config.php)
-├── config.xampp.php       configuración de demo para XAMPP
-├── instalar-xampp.bat     instala todo en XAMPP con doble clic (solo para probar)
-├── includes/
-│   ├── header.php         <head>, marca, menú y botón Salir
-│   ├── footer.php         pie
-│   └── form_docente.php   formulario compartido por el alta y la modificación
-├── css/styles.css         estilos, mobile first
+├── instalar-xampp.bat         instala todo en XAMPP con doble clic (solo para probar)
+├── index.php                  en XAMPP, manda a public/
+├── config/
+│   ├── config.ejemplo.php     modelo de configuración (copiar como config.php)
+│   ├── config.xampp.php       configuración de demo para XAMPP
+│   └── gestion.conf           Alias de Apache: /gestion → public/
 ├── database/
-│   ├── gestion.sql        esquema de la base y datos de prueba
-│   └── demo_xampp.sql     usuario de la base y usuarios de demo, solo para XAMPP
-└── docs/demo/             GIF de la demo
+│   ├── gestion.sql            esquema de la base y datos de prueba
+│   └── demo_xampp.sql         usuario de la base y usuarios de demo, solo para XAMPP
+├── scripts/crear_usuario.php  crea usuarios desde la terminal, con password_hash
+├── src/
+│   ├── conexion.php           conectar(): la conexión PDO
+│   ├── funciones.php          e(), validar_docente(), exigir_login(), token_csrf()…
+│   └── plantillas/            header, footer y el formulario del docente
+├── docs/demo/                 GIF de la demo
+└── public/                    lo único que sirve Apache
+    ├── index.php              listado de docentes
+    ├── alta.php               alta (INSERT)
+    ├── editar.php             modificación (UPDATE … WHERE id)
+    ├── baja.php               baja con confirmación (DELETE por POST), solo admin
+    ├── login.php              ingreso: password_verify y la sesión
+    ├── logout.php             salir (POST con token)
+    ├── materias.php           docentes por materia, con filtro y orden
+    ├── exportar.php           el mismo listado en CSV
+    └── css/styles.css         estilos, mobile first
 ```
 
 ## Probarlo en XAMPP (Windows)
@@ -125,7 +128,7 @@ Para probar el sistema en la propia PC, sin configurar nada a mano.
 
 1. Descargar el zip (botón verde **Code**, **Download ZIP**) y descomprimirlo en `C:\xampp\htdocs\`. Queda la carpeta `gestion-legajos-php-main`; se le puede sacar el `-main`.
 2. Arrancar **Apache** y **MySQL** desde el panel de XAMPP.
-3. Doble clic en `instalar-xampp.bat`. Crea la base `gestion` con los datos de prueba (si ya existía, la borra), el usuario de la base `app_gestion` y los usuarios de demo, y copia `config.xampp.php` como `config.php`.
+3. Doble clic en `instalar-xampp.bat`. Crea la base `gestion` con los datos de prueba (si ya existía, la borra), el usuario de la base `app_gestion` y los usuarios de demo, y copia `config\config.xampp.php` como `config\config.php`.
 4. Abrir la dirección que muestra al terminar: `http://localhost/gestion-legajos-php/` (o con el nombre que haya quedado la carpeta).
 
 | Usuario | Contraseña | Rol |
@@ -133,9 +136,9 @@ Para probar el sistema en la propia PC, sin configurar nada a mano.
 | `admin` | `Admin-Demo-2026` | administrador: además da de baja |
 | `operador1` | `Operador-Demo-2026` | operador: consulta, carga y modifica |
 
-> **Solo para probar en la propia PC.** Estas contraseñas son públicas. `database/demo_xampp.sql` y `config.xampp.php` no se usan en un servidor: ahí la instalación es la de LAMP, con usuarios creados con `crear_usuario.php` y contraseñas que no están en ningún archivo.
+> **Solo para probar en la propia PC.** Estas contraseñas son públicas. `database/demo_xampp.sql` y `config/config.xampp.php` no se usan en un servidor: ahí la instalación es la de LAMP, con usuarios creados con `crear_usuario.php` y contraseñas que no están en ningún archivo.
 
-Sin el instalador, a mano: en phpMyAdmin (`http://localhost/phpmyadmin`), pestaña **Importar**, cargar `database/gestion.sql` y después `database/demo_xampp.sql`; copiar `config.xampp.php` como `config.php`.
+Sin el instalador, a mano: en phpMyAdmin (`http://localhost/phpmyadmin`), pestaña **Importar**, cargar `database/gestion.sql` y después `database/demo_xampp.sql`; copiar `config\config.xampp.php` como `config\config.php`.
 
 Si XAMPP no está en `C:\xampp` o el usuario `root` de MySQL tiene contraseña, el instalador lo avisa y dice qué línea cambiar.
 
@@ -143,9 +146,9 @@ Si XAMPP no está en `C:\xampp` o el usuario `root` de MySQL tiene contraseña, 
 
 Requisitos: Apache 2.4, PHP 8.1 o superior con `pdo_mysql` (paquete `php-mysql`) y MySQL 8.
 
-1. Copiar el proyecto en la carpeta web (por ejemplo, `/var/www/html/gestion`) y darle el grupo de Apache:
+1. Clonar el repositorio en `/var/www/gestion-legajos-php` y darle el grupo de Apache:
    ```bash
-   sudo chown -R $USER:www-data /var/www/html/gestion
+   sudo chown -R $USER:www-data /var/www/gestion-legajos-php
    ```
 2. Crear la base con los datos de prueba (si ya existe una base `gestion`, la borra):
    ```bash
@@ -158,29 +161,33 @@ Requisitos: Apache 2.4, PHP 8.1 o superior con `pdo_mysql` (paquete `php-mysql`)
    ```
 4. Crear la configuración real, poner la contraseña y dejarla solo para Apache:
    ```bash
-   cp config.ejemplo.php config.php
-   chmod 640 config.php
+   cp config/config.ejemplo.php config/config.php
+   chmod 640 config/config.php
    ```
-5. Crear el primer usuario desde la terminal del servidor, en la carpeta del sistema. Pide la contraseña dos veces y no la muestra (12 caracteres o más):
+5. Publicar `public/` en `http://IP-DEL-SERVIDOR/gestion/`:
    ```bash
-   php crear_usuario.php admin admin
-   php crear_usuario.php operador1 operador
+   sudo cp config/gestion.conf /etc/apache2/conf-available/
+   sudo a2enconf gestion
+   sudo apache2ctl configtest
+   sudo systemctl reload apache2
    ```
-6. Sacar `database/` de la carpeta web (Apache la mostraría como texto) y abrir `http://IP-DEL-SERVIDOR/gestion/login.php`.
+6. Crear los usuarios desde la terminal. Pide la contraseña dos veces y no la muestra (12 caracteres o más):
+   ```bash
+   php scripts/crear_usuario.php admin admin
+   php scripts/crear_usuario.php operador1 operador
+   ```
+7. Abrir `http://IP-DEL-SERVIDOR/gestion/`.
 
 ## Probado en el servidor
 
 Salidas reales, en Ubuntu Server 26.04 con Apache 2.4.66, PHP 8.5.4 y MySQL 8.4.13:
 
 ```console
-$ curl -s -o /dev/null -w "%{http_code} %{size_download} bytes\n" http://localhost/gestion/config.php
-200 0 bytes
-
 $ curl -s -o /dev/null -w "%{http_code}\n" "http://localhost/gestion/editar.php?id=99"
 404
 ```
 
-`config.php` pedido desde el navegador no muestra nada: PHP lo ejecuta y devuelve el array a quien hace `require`. Si MySQL no responde, el usuario ve un aviso y en el `error.log` queda el detalle:
+Si MySQL no responde, el usuario ve un aviso y en el `error.log` queda el detalle:
 
 ```
 [php:notice] … Error de conexi\xc3\xb3n a MySQL: SQLSTATE[HY000] [2002] No such file or directory
@@ -188,15 +195,14 @@ $ curl -s -o /dev/null -w "%{http_code}\n" "http://localhost/gestion/editar.php?
 
 (Apache anota las letras con tilde como sus bytes en UTF-8: `\xc3\xb3` es la **ó**.)
 
-Sin sesión, cada página manda al login, y `crear_usuario.php` no responde desde el navegador:
+Sin sesión, cada página manda al login:
 
 ```console
 $ curl -s -o /dev/null -w "%{http_code} -> %{redirect_url}\n" -X POST "http://localhost/gestion/baja.php?id=7"
 302 -> http://localhost/gestion/login.php
-
-$ curl -s -o /dev/null -w "%{http_code}\n" http://localhost/gestion/crear_usuario.php
-404
 ```
+
+`config/`, `src/` y `scripts/` no tienen dirección: Apache publica solo `public/`.
 
 Con una sesión de administrador abierta con `curl` (`-c` guarda la cookie y `-b` la manda), la baja sin el token del formulario no pasa:
 

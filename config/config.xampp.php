@@ -1,6 +1,6 @@
 <?php
-// config.xampp.php: configuración para probar en XAMPP, SOLO en la propia PC
-// instalar-xampp.bat la copia como config.php (si config.php no existe).
+// config/config.xampp.php: configuración para probar en XAMPP, SOLO en la propia PC
+// instalar-xampp.bat la copia como config/config.php (si config.php no existe).
 // La contraseña es pública y es la que crea database/demo_xampp.sql: nunca usar en un servidor.
 
 // return devuelve este array a quien haga require del archivo

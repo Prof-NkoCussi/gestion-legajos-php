@@ -101,6 +101,6 @@ INSERT INTO inscripciones (docente_id, cargo_materia, anio, puntaje) VALUES
 
 -- ---------- Usuario de la aplicación ----------
 -- La aplicación NO se conecta como root. Crear el usuario a mano, en mysql>,
--- con una contraseña propia (la misma que después va en config.php):
+-- con una contraseña propia (la misma que después va en config/config.php):
 --   CREATE USER 'app_gestion'@'localhost' IDENTIFIED BY 'una-contraseña-segura';
 --   GRANT SELECT, INSERT, UPDATE, DELETE ON gestion.* TO 'app_gestion'@'localhost';

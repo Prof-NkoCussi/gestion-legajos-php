@@ -32,12 +32,12 @@ echo Creando el usuario de la base y los usuarios de demo...
 if errorlevel 1 goto error_mysql
 
 REM config.php: si no existe, se copia el de XAMPP; si ya existe, no se toca
-if exist config.php (
-    echo config.php ya existe y no se modifico.
+if exist config\config.php (
+    echo config\config.php ya existe y no se modifico.
     echo Si no se puede entrar al sistema, borrarlo y volver a correr este archivo.
 ) else (
-    copy config.xampp.php config.php >nul
-    echo Se creo config.php con la configuracion de XAMPP.
+    copy config\config.xampp.php config\config.php >nul
+    echo Se creo config\config.php con la configuracion de XAMPP.
 )
 
 REM %%~nxI: el nombre de la carpeta del proyecto, para armar la direccion

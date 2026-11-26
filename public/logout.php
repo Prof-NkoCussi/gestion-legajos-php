@@ -1,6 +1,6 @@
 <?php
 // logout.php: salir del sistema (solo con un formulario POST)
-require __DIR__ . '/funciones.php';
+require __DIR__ . '/../src/funciones.php';
 
 iniciar_sesion();
 // Un enlace o una imagen de otra página no pueden cerrar la sesión: hace falta un POST

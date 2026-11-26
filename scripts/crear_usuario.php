@@ -1,15 +1,15 @@
 <?php
-// crear_usuario.php: crea un usuario del sistema desde la terminal del servidor
-// Uso:  php crear_usuario.php USUARIO ROL      (ROL: admin u operador)
+// scripts/crear_usuario.php: crea un usuario del sistema desde la terminal del servidor
+// Uso:  php scripts/crear_usuario.php USUARIO ROL      (ROL: admin u operador)
 // La contraseña se pide dos veces y no se ve mientras se escribe.
 
-// PHP_SAPI vale 'cli' en la terminal; si lo pide un navegador, responde 404 y no hace nada
+// PHP_SAPI vale 'cli' en la terminal. scripts/ no tiene URL; igual, si llegara un navegador: 404
 if (PHP_SAPI !== 'cli') {
     http_response_code(404);
     exit;
 }
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 // pedir_clave(): muestra el texto y lee una línea sin que se vea (stty -echo apaga el eco)
 function pedir_clave(string $texto): string
@@ -27,7 +27,7 @@ $usuario = $argv[1] ?? '';
 $rol = $argv[2] ?? '';
 // Usuario: de 3 a 50 letras minúsculas, números, punto o guion bajo; rol: lista blanca
 if (preg_match('/^[a-z0-9._]{3,50}$/', $usuario) !== 1 || !in_array($rol, ['admin', 'operador'], true)) {
-    fwrite(STDERR, "Uso: php crear_usuario.php USUARIO admin|operador\n");
+    fwrite(STDERR, "Uso: php scripts/crear_usuario.php USUARIO admin|operador\n");
     exit(1);
 }
 

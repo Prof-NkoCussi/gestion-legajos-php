@@ -1,5 +1,5 @@
 <?php
-// funciones.php: funciones que usan todas las páginas
+// src/funciones.php: funciones que usan todas las páginas
 
 // PHP no toma la zona horaria de Linux: se la decimos acá, una sola vez
 date_default_timezone_set('America/Argentina/Ushuaia');
@@ -106,10 +106,10 @@ function pagina_error(int $codigo, string $texto): never
     // Código de estado HTTP: 404 = no existe, 500 = error del servidor
     http_response_code($codigo);
     $titulo = 'Aviso';
-    require __DIR__ . '/includes/header.php';
+    require __DIR__ . '/plantillas/header.php';
     echo '<p class="aviso aviso--error">' . e($texto) . '</p>';
     echo '<p><a href="index.php">Volver al listado</a></p>';
-    require __DIR__ . '/includes/footer.php';
+    require __DIR__ . '/plantillas/footer.php';
     exit;
 }
 

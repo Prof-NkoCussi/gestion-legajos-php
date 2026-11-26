@@ -9,7 +9,7 @@ USE gestion;
 -- Usuario de la base para la aplicación, con permisos mínimos
 -- @'localhost': solo se puede conectar desde esta misma PC
 CREATE USER IF NOT EXISTS 'app_gestion'@'localhost' IDENTIFIED BY 'Xampp-Demo-2026';
--- Si ya existía con otra contraseña, queda con la de config.xampp.php
+-- Si ya existía con otra contraseña, queda con la de config/config.xampp.php
 ALTER USER 'app_gestion'@'localhost' IDENTIFIED BY 'Xampp-Demo-2026';
 GRANT SELECT, INSERT, UPDATE, DELETE ON gestion.* TO 'app_gestion'@'localhost';
 

@@ -1,7 +1,7 @@
 <?php
 // editar.php: modificación de un docente: el id llega por GET (editar.php?id=3)
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 exigir_login();
 
@@ -64,8 +64,8 @@ $accion = 'editar.php?id=' . $id;
 $boton = 'Guardar cambios';
 
 $titulo = 'Modificar docente';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../src/plantillas/header.php';
 ?>
 <h1>Modificar docente</h1>
-<?php require __DIR__ . '/includes/form_docente.php'; ?>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../src/plantillas/form_docente.php'; ?>
+<?php require __DIR__ . '/../src/plantillas/footer.php'; ?>

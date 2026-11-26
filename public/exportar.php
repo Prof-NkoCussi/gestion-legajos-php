@@ -1,7 +1,7 @@
 <?php
 // exportar.php: descarga el listado de docentes por materia como CSV, listo para abrir en Excel
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 exigir_login();
 $pdo = conectar();

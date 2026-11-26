@@ -1,11 +1,11 @@
 <?php
-// conexion.php: abre la conexión con MySQL usando PDO
+// src/conexion.php: abre la conexión con MySQL usando PDO
 
 // conectar(): devuelve un objeto PDO listo para hacer consultas
 function conectar(): PDO
 {
-    // Los datos de acceso vienen de config.php, que no está en el repositorio
-    $config = require __DIR__ . '/config.php';
+    // Los datos de acceso vienen de config/config.php, que no está en el repositorio
+    $config = require __DIR__ . '/../config/config.php';
 
     // DSN: qué motor (mysql), en qué servidor, qué base y qué juego de caracteres
     $dsn = 'mysql:host=' . $config['db_host']

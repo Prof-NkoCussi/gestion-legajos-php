@@ -1,7 +1,7 @@
 <?php
 // materias.php: qué docentes dan cada materia, con filtro y orden
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 exigir_login();
 $pdo = conectar();
@@ -19,7 +19,7 @@ $filas = buscar_docentes_por_materia($pdo, $filtro);
 $enlace_csv = 'exportar.php?' . http_build_query($filtro);
 
 $titulo = 'Docentes por materia';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../src/plantillas/header.php';
 ?>
 <div class="titular">
     <h1>Docentes por materia</h1>
@@ -79,4 +79,4 @@ require __DIR__ . '/includes/header.php';
         </table>
     </div>
 <?php endif; ?>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../src/plantillas/footer.php'; ?>

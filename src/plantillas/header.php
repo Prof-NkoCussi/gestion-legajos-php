@@ -1,5 +1,5 @@
 <?php
-// includes/header.php: cabecera común: <head>, marca del sistema y menú
+// src/plantillas/header.php: cabecera común: <head>, marca del sistema y menú
 // Cada página lo trae con require, después de definir $titulo
 // $yo: el usuario que entró, o null (en el login)
 $yo = usuario_actual();

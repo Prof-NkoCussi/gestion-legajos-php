@@ -1,4 +1,4 @@
 # database/.htaccess: en XAMPP Apache publica toda la carpeta del proyecto
-# Require all denied: los .sql no se pueden pedir desde el navegador (403)
-# En el servidor LAMP, database/ se saca de la carpeta web (paso 6 del README)
+# Require all denied: nada de database/ se puede pedir desde el navegador (403)
+# En el servidor LAMP no hace falta: ahí Apache publica solo public/
 Require all denied

@@ -2,8 +2,8 @@
 // baja.php: baja de un docente en dos pasos:
 //   GET  baja.php?id=7 → muestra quién es y pide confirmación (no borra nada)
 //   POST baja.php?id=7 → recién ahí hace el DELETE
-require __DIR__ . '/funciones.php';
-require __DIR__ . '/conexion.php';
+require __DIR__ . '/../src/funciones.php';
+require __DIR__ . '/../src/conexion.php';
 
 // La baja es solo para el admin: sin login, al login; con otro rol, 403
 exigir_admin();
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $titulo = 'Dar de baja';
-require __DIR__ . '/includes/header.php';
+require __DIR__ . '/../src/plantillas/header.php';
 ?>
 <h1>Dar de baja</h1>
 
@@ -67,4 +67,4 @@ require __DIR__ . '/includes/header.php';
         </div>
     </form>
 <?php endif; ?>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require __DIR__ . '/../src/plantillas/footer.php'; ?>
