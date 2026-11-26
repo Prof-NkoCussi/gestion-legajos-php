@@ -22,7 +22,7 @@ Desarrollado con **PHP** y **MySQL**, sobre una arquitectura **LAMP** (Linux, Ap
 
 Incluye un sistema de **autenticación con roles de usuario**, operaciones **ABM de docentes** (alta, baja y modificación), consulta de docentes por materia y exportación de información en formato **CSV**, compatible con Microsoft Excel.
 
-> **Proyecto de práctica.** Los docentes, DNI, emails, títulos, materias y usuarios son datos ficticios, creados solo para probar el sistema. No contiene datos reales de docentes: en un sistema real, los legajos tienen datos personales protegidos por la Ley 25.326 de Protección de Datos Personales. No reemplaza ni está conectado a ningún sistema oficial de gestión de personal.
+> **Proyecto de práctica.** Los docentes, DNI, emails, títulos y usuarios son datos ficticios, creados solo para probar el sistema. Las materias son de ejemplo. No contiene datos reales de docentes ni está conectado a ningún sistema oficial de gestión.
 
 ## Qué hace
 
